@@ -31,10 +31,10 @@ controller.enviar = (req, res) =>{
 controller.delete = (req, res) =>{
     
     //A travez del parametro es como obtenemos el id
-    const {id_chat} = req.params;
+    const {idMedicamento} = req.params;
 
     req.getConnection((err, conn) =>{
-        conn.query('DELETE FROM servidor WHERE id_chat = ?', [id_chat], (err, rows) => {
+        conn.query('DELETE FROM medicamento WHERE idMedicamento = ?', [idMedicamento], (err, rows) => {
             res.redirect('/');
         });
     });
@@ -43,22 +43,22 @@ controller.delete = (req, res) =>{
 
 controller.edit = (req, res) =>{
      //A travez del parametro es como obtenemos el id
-     const {id_chat} = req.params;
+     const {idMedicamento} = req.params;
 
      req.getConnection((err, conn) => {
-        conn.query('SELECT * FROM servidor WHERE id_chat = ?', [id_chat], (err, servidor) =>{
+        conn.query('SELECT * FROM medicamento WHERE idMedicamento = ?', [idMedicamento], (err, medicamento) =>{
             res.render('customer_edit' , {
-                data:servidor[0]
+                data:medicamento[0]
             });
         });
      });
 };
 
 controller.update = (req, res) =>{
-    const {id_chat} = req.params;
+    const {idMedicamento} = req.params;
     const newCustomer = req.body;
     req.getConnection((err, conn) =>{
-        conn.query('UPDATE servidor set ? WHERE id_chat = ?', [newCustomer, id_chat], (err, rows) =>{
+        conn.query('UPDATE medicamento set ? WHERE idMedicamento = ?', [newCustomer, idMedicamento], (err, rows) =>{
             res.redirect('/');
         });
     });
