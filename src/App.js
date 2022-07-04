@@ -24,7 +24,7 @@ app.use(myConnection(mysql, {
     user: 'root',
     password: 'swampert24',
     port: 3306,
-    database: 'servidor'
+    database: 'farmacia_distribucion'
 }, 'single'));
 //Desde el metodo express estamos requiriendo un metodo que permitira
 //entender todos los datos que vengan del formulario

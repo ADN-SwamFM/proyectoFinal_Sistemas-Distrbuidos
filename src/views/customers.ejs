@@ -28,14 +28,14 @@
                                 <!--Obtenemos los datos-->
                                 <!--Por cada dato de la BD-->
                                 <td><%= (i+1) %></td>
-                                <td><%= data[i].nombrePro %></td>
-                                <td><%= data[i].descrPro %></td>
-                                <td><%= data[i].precio %></td>
+                                <td><%= data[i].nombreMedicamento %></td>
+                                <td><%= data[i].descripcionMedicamento %></td>
+                                <td><%= data[i].precioFinal %></td>
                                 <td><%= data[i].fecha %></td>
-                                <td><%= data[i].existencias %></td>
+                                <td><%= data[i].existencia %></td>
                                 <td>
-                                    <a href="/delete/<%= data[i].id_chat %>" class="btn btn-danger">Delete</a>
-                                    <a href="/update/<%= data[i].id_chat %>" class="btn btn-info mt-3">Update</a>
+                                    <a href="/delete/<%= data[i].idMedicamento %>" class="btn btn-danger">Delete</a>
+                                    <a href="/update/<%= data[i].idMedicamento %>" class="btn btn-info mt-3">Update</a>
                                 </td>
                             </tr>
                         <% } %>
@@ -49,15 +49,15 @@
                 <div class="card-body">
                     <form action="/add" method="post">
                         <div class="form-group">
-                            <input type="text" name="nombrePro" placeholder="Nombre producto: " class="form-control">
+                            <input type="text" name="nombreMedicamento" placeholder="Nombre producto: " class="form-control">
                         </div>
         
                         <div class="form-group mt-3">
-                            <input type="text" name="descrPro" placeholder="Descripción: " class="form-control">
+                            <input type="text" name="descripcionMedicamento" placeholder="Descripción: " class="form-control">
                         </div>
         
                         <div class="form-group mt-3">
-                            <input type="number" name="precio" placeholder="Precio: " class="form-control">
+                            <input type="number" name="precioFinal" placeholder="Precio: " class="form-control">
                         </div>
         
                         <div class="form-group mt-3">
@@ -65,14 +65,38 @@
                         </div>
         
                         <div class="form-group mt-3">
-                            <input type="text" name="existencias" placeholder="Existencias: " class="form-control">
+                            <input type="number" name="existencia" placeholder="Existencias: " class="form-control">
                         </div>
         
-                        <button type="submit" class="btn btn-primary mt-3"> Enviar </button>
+                        <div class="form-group mt-3">
+                            <input type="text" multiple name="idMarca" placeholder="Marca" class="form-control" list="Marca">
+
+                            <datalist id="Marca">
+                                <option value="1">PFIZER</option>
+                                <option value="2">Roche Group</option>
+                                <option value="3">JANSSEN</option>
+                                <option value="4">Novartis</option>
+                                <option value="5">Amgen</option>
+                            </datalist>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="text" multiple name="idConsumible" placeholder="Tipo de suministro" class="form-control" list="Consumible">
+
+                            <datalist id="Consumible">
+                                <option value="1">Inyeccion</option>
+                                <option value="2">Capsulas</option>
+                                <option value="3">Bebible</option>
+                            </datalist>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3"> Agregar Producto </button>
         
                     </form>
                 </div>
             </div>
+        </div>
+        <div>
+            
+
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@ controller.list = (req,res)=>{
     //Controlador que se encarga de mandar una respuesta
     //al servidor
     req.getConnection((err, conn) =>{
-        conn.query('SELECT * FROM servidor',(err,customers) => {
+        conn.query('SELECT * FROM medicamento',(err,customers) => {
             if(err){
                 res.json(err);
             }
@@ -21,7 +21,7 @@ controller.enviar = (req, res) =>{
     const data = req.body;
 
     req.getConnection((err, conn) =>{
-        conn.query('INSERT INTO servidor set ?', [data], (err, servidor) =>{
+        conn.query('INSERT INTO medicamento set ?', [data], (err, medicamento) =>{
             res.redirect('/');
         });
     });
@@ -62,19 +62,6 @@ controller.update = (req, res) =>{
             res.redirect('/');
         });
     });
-};
-
-controller.delete = (req, res) =>{
-    
-    //A travez del parametro es como obtenemos el id
-    const {id_chat} = req.params;
-
-    req.getConnection((err, conn) =>{
-        conn.query('DELETE FROM servidor WHERE id_chat = ?', [id_chat], (err, rows) => {
-            res.redirect('/');
-        });
-    });
-
 };
 
 module.exports = controller;

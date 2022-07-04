@@ -6,17 +6,17 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <form action="/update/<%= data.id_chat %>" method="post">
+                    <form action="/update/<%= data.idMedicamento %>" method="post">
                         <div class="form-group">
-                            <input type="text" name="emisor" value="<%= data.emisor %>" class="form-control">
+                            <input type="text" name="nombreMedicamento" value="<%= data.nombreMedicamento %>" class="form-control">
                         </div>
         
                         <div class="form-group mt-3">
-                            <input type="text" name="receptor" value="<%= data.receptor %>" class="form-control">
+                            <input type="text" name="descripcionMedicamento" value="<%= data.descripcionMedicamento %>" class="form-control">
                         </div>
         
                         <div class="form-group mt-3">
-                            <input type="text" name="texto" value="<%= data.texto %>" class="form-control">
+                            <input type="text" name="precioFinal" value="<%= data.precioFinal %>" class="form-control">
                         </div>
         
                         <div class="form-group mt-3">
@@ -24,7 +24,7 @@
                         </div>
         
                         <div class="form-group mt-3">
-                            <input type="text" name="estado" value="<%= data.estado %>" class="form-control">
+                            <input type="number" name="existencia" value="<%= data.existencia %>" class="form-control">
                         </div>
         
                         <button type="submit" class="btn btn-primary mt-3"> Edit </button>
