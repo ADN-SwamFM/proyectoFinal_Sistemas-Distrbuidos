@@ -1,61 +1,41 @@
-import React, { Component } from 'react';
-import ReactGA from 'react-ga';
-import $ from 'jquery';
-import './App.css';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-import About from './Components/About';
-import Resume from './Components/Resume';
-import Contact from './Components/Contact';
-import Testimonials from './Components/Testimonials';
-import Portfolio from './Components/Portfolio';
+const express = require('express');
+//Une directorios
+const path = require('path');
+const morgan = require('morgan');
+const mysql = require('mysql');
+const myConnection = require('express-myConnection');
 
-class App extends Component {
+const app = express();
 
-  constructor(props){
-    super(props);
-    this.state = {
-      foo: 'bar',
-      resumeData: {}
-    };
+//IMPORTANDO RUTAS
+const customerRoutes = require('./routes/customer');
 
-    ReactGA.initialize('UA-110570651-1');
-    ReactGA.pageview(window.location.pathname);
+app.set('port', process.env.PORT || 3000);
+//Motor de plantillas (Vistas)
+app.set('view engine', 'ejs');
+//Donde se encuentra la vista
+//Dirname nos da la ruta de acuerdo en donde se ejecute el archivo
+app.set('views',path.join(__dirname,'views'));
 
-  }
+// MIDDLEWARES --> Se ejecutan antes que lleguen las peticiones de lo usuarios
+app.use(morgan('dev'));
+app.use(myConnection(mysql, {
+    host: 'localhost',
+    user: 'root',
+    password: 'swampert24',
+    port: 3306,
+    database: 'servidor'
+}, 'single'));
+//Desde el metodo express estamos requiriendo un metodo que permitira
+//entender todos los datos que vengan del formulario
+app.use(express.urlencoded({extended: false}));
 
-  getResumeData(){
-    $.ajax({
-      url:'/resumeData.json',
-      dataType:'json',
-      cache: false,
-      success: function(data){
-        this.setState({resumeData: data});
-      }.bind(this),
-      error: function(xhr, status, err){
-        console.log(err);
-        alert(err);
-      }
-    });
-  }
+//Routes
+app.use('/', customerRoutes);
 
-  componentDidMount(){
-    this.getResumeData();
-  }
+//ARCHIVOS ESTATICOS
+app.use(express.static(path.join(__dirname, 'public')))
 
-  render() {
-    return (
-      <div className="App">
-        <Header data={this.state.resumeData.main}/>
-        <About data={this.state.resumeData.main}/>
-        <Resume data={this.state.resumeData.resume}/>
-        <Portfolio data={this.state.resumeData.portfolio}/>
-        <Testimonials data={this.state.resumeData.testimonials}/>
-        <Contact data={this.state.resumeData.main}/>
-        <Footer data={this.state.resumeData.main}/>
-      </div>
-    );
-  }
-}
-
-export default App;
+app.listen(app.get('port'), () => {
+    console.log('Server on port 3000');
+});

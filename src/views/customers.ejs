@@ -1,0 +1,80 @@
+
+<%- include ('partials/header'); -%>
+
+
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-7">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del producto</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Fecha de Compra</th>
+                        <th>Existencias</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--Validaremos si tenemos datos los mostraremos-->
+                    <% if (data) { %>
+                        <!--Desde el indice 0, hasta la 
+                        longitud de los datos-->
+                        <% for (var i= 0; i< data.length; i++) { %>
+                            <tr>
+                                <!--Obtenemos los datos-->
+                                <!--Por cada dato de la BD-->
+                                <td><%= (i+1) %></td>
+                                <td><%= data[i].nombrePro %></td>
+                                <td><%= data[i].descrPro %></td>
+                                <td><%= data[i].precio %></td>
+                                <td><%= data[i].fecha %></td>
+                                <td><%= data[i].existencias %></td>
+                                <td>
+                                    <a href="/delete/<%= data[i].id_chat %>" class="btn btn-danger">Delete</a>
+                                    <a href="/update/<%= data[i].id_chat %>" class="btn btn-info mt-3">Update</a>
+                                </td>
+                            </tr>
+                        <% } %>
+
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add" method="post">
+                        <div class="form-group">
+                            <input type="text" name="nombrePro" placeholder="Nombre producto: " class="form-control">
+                        </div>
+        
+                        <div class="form-group mt-3">
+                            <input type="text" name="descrPro" placeholder="Descripción: " class="form-control">
+                        </div>
+        
+                        <div class="form-group mt-3">
+                            <input type="number" name="precio" placeholder="Precio: " class="form-control">
+                        </div>
+        
+                        <div class="form-group mt-3">
+                            <input type="text" name="fecha" placeholder="Fecha: " class="form-control">
+                        </div>
+        
+                        <div class="form-group mt-3">
+                            <input type="text" name="existencias" placeholder="Existencias: " class="form-control">
+                        </div>
+        
+                        <button type="submit" class="btn btn-primary mt-3"> Enviar </button>
+        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('partials/footer') -%>
